@@ -9,6 +9,7 @@ ENV NGINX_RTMP_MODULE_VERSION 1.2.1
 # Install dependencies
 RUN apt-get update && \
     apt-get install -y ca-certificates openssl libssl-dev && \
+    apt-get install -y gettext-base \
     rm -rf /var/lib/apt/lists/*
 
 # Download and decompress Nginx
@@ -52,6 +53,11 @@ RUN ln -sf /dev/stdout /var/log/nginx/access.log && \
 # Set up config file
 COPY nginx.conf /etc/nginx/nginx.conf
 
+
+ENV STREAM_KEY=stream_key \
+  RECORD_PATH=/recordings 
+
+VOLUME ["/recordings"]
 
 COPY docker-entrypoint.sh /
 RUN chmod 775 /docker-entrypoint.sh
