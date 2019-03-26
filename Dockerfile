@@ -57,7 +57,7 @@ COPY nginx.conf /etc/nginx/nginx.conf
 ENV STREAM_KEY=stream_key \
   RECORD_PATH=/recordings 
 
-VOLUME ["/recordings"]
+VOLUME ["${RECORD_PATH}"]
 
 COPY docker-entrypoint.sh /
 RUN chmod 775 /docker-entrypoint.sh
